@@ -1,13 +1,66 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Rider ignored files
-/contentModel.xml
-/projectSettingsUpdater.xml
-/.idea.FinAspire.iml
-/modules.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rtifacts/
+[Oo]ut/
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+
+# VS Code files
+.vscode/
+
+# Rider files
+.idea/
+*.sln.iml
+
+# ASP.NET Core secrets
+secrets.json
+
+# Configurations
+appsettings.Development.json
+appsettings.*.local.json
+
+# Package directories
+*.nuget/
+*.npm/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Auto-generated files
+*.generated.*
+*.designer.cs
+*.g.i.cs
+*.g.cs
+
+# Database files
+*.mdf
+*.ldf
+
+# Other ignored files
+*.pidb
+*.svclog
+*.pfx
+*.class
+
+# Dependency folders
+node_modules/
+wwwroot/lib/
+
+# JetBrains Rider
+.idea/
+.idea_modules/
