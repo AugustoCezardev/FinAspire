@@ -1,0 +1,12 @@
+C:\dev\projects\FinAspire\FinAspire.Core\bin\Debug\net9.0\FinAspire.Core.deps.json
+C:\dev\projects\FinAspire\FinAspire.Core\bin\Debug\net9.0\FinAspire.Core.dll
+C:\dev\projects\FinAspire\FinAspire.Core\bin\Debug\net9.0\FinAspire.Core.pdb
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\FinAspire.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\FinAspire.Core.AssemblyInfoInputs.cache
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\FinAspire.Core.AssemblyInfo.cs
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\FinAspire.Core.csproj.CoreCompileInputs.cache
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\FinAspire.Core.sourcelink.json
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\FinAspire.Core.dll
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\refint\FinAspire.Core.dll
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\FinAspire.Core.pdb
+C:\dev\projects\FinAspire\FinAspire.Core\obj\Debug\net9.0\ref\FinAspire.Core.dll
