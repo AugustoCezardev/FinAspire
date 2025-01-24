@@ -1,16 +1,22 @@
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(x =>
+{
+    x.CustomSchemaIds(x => x.FullName);
+});
+
+builder.Services.AddTransient<Handler>();
+
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.MapGet("/v1/Transaction", 
-        (Request body, Handler handler) => handler.Handle(body))
-    .WithName("Transaction: Create")
-    .WithSummary("Cria uma nova transação")
-    .Produces<Response>();
-
-
-app.MapPut("/v1/Transaction", 
-    (Request body, Handler handler) => handler.Handle(body))
+app.MapPost("/v1/Transaction", 
+    ([FromBody] Request body, Handler handler) => handler.Handle(body))
     .WithName("Transaction: Create")
     .WithSummary("Cria uma nova transação")
     .Produces<Response>();
