@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "hCkHN6sKhHLJz5RmgBcJ0iPJ+8inC5WPISJwyyUX/Pk=",
+  "Source": "FinAspire.API",
+  "BasePath": "_content/FinAspire.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
