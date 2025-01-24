@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FinAspire.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1e509223d681bf4c654520b77362d055524bb34")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+083a99bb63b27afd295ba130bbe4f72caeac109b")]
 [assembly: System.Reflection.AssemblyProductAttribute("FinAspire.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FinAspire.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using FinAspire.Infra.Data;
+using FinAspire.Infra.Repositories.Categories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,8 +13,10 @@ public static class DependencyInjection
         this IServiceCollection servicesCollection, IConfiguration configuration)
     {
         servicesCollection.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-            configuration.GetConnectionString("DefaultConnection"), 
+            configuration.GetConnectionString("DefaultConnection"),
             c => c.MigrationsAssembly(Assembly.GetExecutingAssembly())));
+
+        servicesCollection.AddScoped<ICategoryRepository, CategoryRepository>();
         
         return servicesCollection;
             
