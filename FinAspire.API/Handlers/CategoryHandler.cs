@@ -3,6 +3,7 @@ using FinAspire.Core.Models;
 using FinAspire.Core.Request.Categories;
 using FinAspire.Core.Response;
 using FinAspire.Infra.Repositories.Categories;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinAspire.API.Handlers;
 
@@ -28,23 +29,70 @@ public class CategoryHandler(ICategoryRepository repository): ICategoryHandler
         }
     }
 
-    public Task<BaseResponse<Category>> UpdateAsync(UpdateCategoryRequest request)
+    public async Task<BaseResponse<Category>> UpdateAsync(UpdateCategoryRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var category = new Category
+            {
+                Id = request.Id,
+                Title = request.Title ?? String.Empty,
+                Description = request.Description,
+            };
+            var result = await repository.UpdateAsync(category);
+            return new BaseResponse<Category>(result, message: "Category updated successfully", code: 200);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public Task<BaseResponse<Category>> DeleteAsync(DeleteCategoryRequest request)
+    public async Task<BaseResponse<Category>> DeleteAsync(DeleteCategoryRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await repository.DeleteAsync(request.Id);
+            
+            return new BaseResponse<Category>(result, message: "Category deleted successfully", code: 200);
+            
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return new BaseResponse<Category>(code: 500, message: e.Message, data: null);
+        }
     }
 
-    public Task<BaseResponse<Category>> GetByIdAsync(GetCategoryByIdRequest request)
+    public async Task<BaseResponse<Category>> GetByIdAsync(GetCategoryByIdRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await repository.GetByIdAsync(request.Id);
+            
+            return result == null ? new BaseResponse<Category>(code: 204, message: "Category not found", data: null) 
+                : new BaseResponse<Category>(result, message: "Category found", code: 200);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public Task<BaseResponse<List<Category>>> GetAllAsync(GetAllCategoriesRequest request)
+    public async Task<BaseResponse<List<Category>>> GetAllAsync(GetAllCategoriesRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await repository.GetAllAsync();
+            
+            return new BaseResponse<List<Category>>(result.ToList(), message: "Categories found", code: 200);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

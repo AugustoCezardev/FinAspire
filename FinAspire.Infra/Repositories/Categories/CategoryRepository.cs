@@ -6,14 +6,33 @@ namespace FinAspire.Infra.Repositories.Categories;
 
 public class CategoryRepository(AppDbContext dbContext): ICategoryRepository
 {
-    public Task<IEnumerable<Category>> GetAllAsync()
+    public async Task<IList<Category>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var categories = await dbContext.Categories.ToListAsync();
+            return categories.ToList();
+        }
+        catch (DbUpdateException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public Task<Category> GetByIdAsync(long id)
+    public async Task<Category?> GetByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var category = await dbContext.Categories.FindAsync(id);
+            
+            return category;
+        }
+        catch (DbUpdateException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task<Category> CreateAsync(Category category)
@@ -32,13 +51,34 @@ public class CategoryRepository(AppDbContext dbContext): ICategoryRepository
         }
     }
 
-    public Task<Category> UpdateAsync(Category category)
+    public async Task<Category> UpdateAsync(Category category)
     {
-        throw new NotImplementedException();
+        try
+        {
+            dbContext.Categories.Update(category);
+            await dbContext.SaveChangesAsync();
+            return category;
+        }
+        catch (DbUpdateException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public Task<Category> DeleteAsync(long id)
+    public async Task<Category> DeleteAsync(long id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var category = new Category { Id = id };
+            dbContext.Categories.Remove(category);
+            await dbContext.SaveChangesAsync();
+            return category;
+        }
+        catch (DbUpdateException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

@@ -28,5 +28,29 @@ app.MapPost("/v1/Categories",
     .WithSummary("Create a new category")
     .Produces<BaseResponse<Category>>();
 
+app.MapGet("/v1/Categories/{id:long}", 
+        ( long id, ICategoryHandler handler) => handler.GetByIdAsync(new GetCategoryByIdRequest { Id = id }))
+    .WithName("Categories: GetById")
+    .WithSummary("Get one category by id")
+    .Produces<BaseResponse<Category>>();
+
+app.MapGet("/v1/Categories", 
+        ( ICategoryHandler handler) => handler.GetAllAsync(new GetAllCategoriesRequest {Page = 1, PageSize = 10, UserId = "1"}))
+    .WithName("Categories: GetAll")
+    .WithSummary("Get all categories")
+    .Produces<BaseResponse<Category>>();
+
+app.MapPut("/v1/Categories", 
+        ( UpdateCategoryRequest body, ICategoryHandler handler) => handler.UpdateAsync(body))
+    .WithName("Categories: Update")
+    .WithSummary("Update category")
+    .Produces<BaseResponse<Category>>();
+
+app.MapDelete("/v1/Categories/{id:long}", 
+        ( long id, ICategoryHandler handler) => handler.DeleteAsync(new DeleteCategoryRequest { Id = id }))
+    .WithName("Categories: Delete")
+    .WithSummary("Remove category")
+    .Produces<BaseResponse<Category>>();
+
 app.Run();
 
