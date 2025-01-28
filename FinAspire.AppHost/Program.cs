@@ -1,8 +1,9 @@
+using Microsoft.Extensions.DependencyInjection;
 using Projects;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.FinAspire_API>("API")
+builder.AddProject<FinAspire_API>("API")
     .WithExternalHttpEndpoints();
 
 builder.Build().Run();
