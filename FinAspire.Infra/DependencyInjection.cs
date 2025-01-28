@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using FinAspire.Infra.Data;
 using FinAspire.Infra.Repositories.Categories;
+using FinAspire.Infra.Repositories.Transactions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ public static class DependencyInjection
             c => c.MigrationsAssembly(Assembly.GetExecutingAssembly())));
 
         servicesCollection.AddScoped<ICategoryRepository, CategoryRepository>();
+        servicesCollection.AddScoped<ITransactionRepository, TransactionRepository>();
         
         return servicesCollection;
             

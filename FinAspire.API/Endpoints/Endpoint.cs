@@ -1,5 +1,7 @@
 ﻿using FinAspire.API.Common;
 using FinAspire.API.Endpoints.Categories;
+using FinAspire.API.Endpoints.Transactions;
+using FinAspire.Core.Request.Transactions;
 
 namespace FinAspire.API.Endpoints;
 
@@ -16,6 +18,14 @@ public static class Endpoint
             .MapEndpoints<GetAllCategoriesEndpoint>()
             .MapEndpoints<DeleteCategoryEndpoint>()
             .MapEndpoints<UpdateCategoryEndpoint>();
+
+        endpointsMap.MapGroup("v1/transactions")
+            .WithTags("Transactions")
+            .MapEndpoints<CreateTransactionEndpoint>()
+            .MapEndpoints<UpdateTransactionEndpoint>()
+            //.MapEndpoints<GetTransactionsByPeriodEndpoint>()
+            .MapEndpoints<GetTransactionByIdEndpoint>()
+            .MapEndpoints<DeleteTransactionEndpoint>();
     }
 
     private static IEndpointRouteBuilder MapEndpoints<TEndpoint>(this IEndpointRouteBuilder endpoints)
