@@ -12,6 +12,7 @@ public abstract class UpdateCategoryEndpoint: IEndpoint
         => routeBuilder.MapPut("/", HandleAsync)
             .WithDescription("Categories: Update")
             .WithSummary("Update category")
+            .WithOrder(3)
             .Produces<BaseResponse<Category>>();
 
     private static async Task<IResult> HandleAsync(UpdateCategoryRequest request, ICategoryHandler handler)

@@ -12,6 +12,7 @@ public abstract class GetAllCategoriesEndpoint: IEndpoint
         => routeBuilder.MapGet("/", HandleAsync)
             .WithDescription("Categories: GetAll")
             .WithSummary("Get all user categories")
+            .WithOrder(3)
             .Produces<PagedResponse<List<Category>?>>();
 
     private static async Task<IResult> HandleAsync(string userId, int page, ICategoryHandler handler)

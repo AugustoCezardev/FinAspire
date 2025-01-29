@@ -12,6 +12,7 @@ public abstract class GetCategoryByIdEndpoint: IEndpoint
         => routeBuilder.MapGet("/{id:long}", HandleAsync)
             .WithDescription("Categories: GetById")
             .WithSummary("Get one category by id")
+            .WithOrder(4)
             .Produces<BaseResponse<Category>>();
 
     private static async Task<IResult> HandleAsync(long id, string userId, ICategoryHandler handler)

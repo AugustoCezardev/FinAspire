@@ -12,6 +12,7 @@ public abstract class DeleteCategoryEndpoint: IEndpoint
         => routeBuilder.MapDelete("/{id:long}", HandleAsync)
             .WithDescription("Categories: DeleteCategory")
             .WithSummary("Delete category by id")
+            .WithOrder(2)
             .Produces<BaseResponse<Category>>();
 
     private static async Task<IResult> HandleAsync(long id, string userId, ICategoryHandler handler)

@@ -23,7 +23,7 @@ public static class Endpoint
             .WithTags("Transactions")
             .MapEndpoints<CreateTransactionEndpoint>()
             .MapEndpoints<UpdateTransactionEndpoint>()
-            //.MapEndpoints<GetTransactionsByPeriodEndpoint>()
+            .MapEndpoints<GetTransactionsByPeriodEndpoint>()
             .MapEndpoints<GetTransactionByIdEndpoint>()
             .MapEndpoints<DeleteTransactionEndpoint>();
     }

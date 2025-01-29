@@ -13,6 +13,7 @@ public abstract class UpdateTransactionEndpoint: IEndpoint
             .WithName("Transactions: Update")
             .WithSummary("Update transaction")
             .WithDescription("Update transaction")
+            .WithOrder(3)
             .Produces<BaseResponse<Transaction>>();
     
     private static async Task<IResult> HandleAsync(UpdateTransactioRequest request, ITransactionHandler handler)

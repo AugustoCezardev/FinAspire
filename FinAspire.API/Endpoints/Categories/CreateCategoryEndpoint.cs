@@ -13,6 +13,7 @@ public abstract class CreateCategoryEndpoint : IEndpoint
         routeBuilder.MapPost("/", HandleAsync)
             .WithName("Categories: Create category")
             .WithSummary("Create category")
+            .WithOrder(1)
             .Produces<BaseResponse<Category>>();
 
     private static async Task<IResult> HandleAsync(

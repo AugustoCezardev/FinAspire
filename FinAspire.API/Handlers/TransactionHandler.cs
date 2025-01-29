@@ -1,4 +1,5 @@
-﻿using FinAspire.Core.Handler;
+﻿using FinAspire.Core.Common.Extensions;
+using FinAspire.Core.Handler;
 using FinAspire.Core.Models;
 using FinAspire.Core.Request.Transactions;
 using FinAspire.Core.Response;
@@ -18,6 +19,7 @@ public class TransactionHandler(ITransactionRepository repository): ITransaction
                 UserId = request.UserId,
                 Amount = request.Amount,
                 Type = request.Type,
+                CreatedAt = DateTime.Now,
                 CategoryId = request.CategoryId,
                 PaidOrReceivedAt = request.PaidOrReceivedAt
             };
@@ -39,9 +41,9 @@ public class TransactionHandler(ITransactionRepository repository): ITransaction
         {
             var transaction = await repository.GetByIdAsync(request.Id, request.UserId);
             
-            if (transaction == null)
+            if (transaction is null)
             {
-                return new BaseResponse<Transaction?>(code: 204, message: "Transaction not found", data: null);
+                return new BaseResponse<Transaction?>(code: 404, message: "Transaction not found", data: null);
             }
             
             transaction.Title = request.Title;
@@ -68,9 +70,9 @@ public class TransactionHandler(ITransactionRepository repository): ITransaction
         {
             var transaction = await repository.GetByIdAsync(request.Id, request.UserId);
             
-            if (transaction == null)
+            if (transaction is null)
             {
-                return new BaseResponse<Transaction?>(code: 204, message: "Transaction not found", data: null);
+                return new BaseResponse<Transaction?>(code: 404, message: "Transaction not found", data: null);
             }
             
             var result = await repository.DeleteAsync(transaction);
@@ -89,21 +91,32 @@ public class TransactionHandler(ITransactionRepository repository): ITransaction
         {
             var transaction = await repository.GetByIdAsync(request.Id, request.UserId);
             
-            if (transaction == null)
-            {
-                return new BaseResponse<Transaction?>(code: 204, message: "Transaction not found", data: null);
-            }
-            
-            return new BaseResponse<Transaction?>(transaction, message: "Transaction found successfully", code: 200);
+            return transaction is null ? 
+                new BaseResponse<Transaction?>(code: 404, message: "Transaction not found", data: null) : 
+                new BaseResponse<Transaction?>(transaction, message: "Transaction found successfully", code: 200);
             
         }catch(Exception ex)
         {
-         return new BaseResponse<Transaction?>(code: 500, message: ex.Message, data: null);   
+            return new BaseResponse<Transaction?>(code: 500, message: ex.Message, data: null);   
         }
     }
 
-    public Task<PagedResponse<List<Transaction>?>> GetByPeriod(GetTransactionByPeriodRequest request)
+    public async Task<PagedResponse<List<Transaction>?>> GetByPeriod(GetTransactionByPeriodRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            request.StartDate ??= DateTime.Now.GetFirtsDay();
+            request.EndDate ??= DateTime.Now.GetLastDay();
+            
+            var result = await repository.GetByPeriodAsync(request);
+            
+            return result;
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return new PagedResponse<List<Transaction>?>(code: 500, message: e.Message, data: null);
+        }
     }
 }

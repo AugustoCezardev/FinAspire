@@ -71,8 +71,31 @@ public class TransactionRepository(AppDbContext dbContext): ITransactionReposito
         }
     }
 
-    public Task<PagedResponse<List<Transaction>?>> GetByPeriodAsync(GetTransactionByPeriodRequest request)
+    public async Task<PagedResponse<List<Transaction>?>> GetByPeriodAsync(GetTransactionByPeriodRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var query = dbContext.Transactions
+                .AsNoTracking()
+                .Where(x => 
+                    x.UserId == request.UserId &&
+                    x.CreatedAt >= request.StartDate &&
+                    x.CreatedAt <= request.EndDate)
+                .OrderBy(x => x.CreatedAt);
+            
+            var transactions = await query
+                .Skip(request.PageSize * (request.Page - 1))
+                .Take(request.PageSize)
+                .ToListAsync();
+            
+            var count = await query.CountAsync();
+            
+            return new PagedResponse<List<Transaction>?>(transactions, count, request.Page);
+            
+        }catch(Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
     }
 }

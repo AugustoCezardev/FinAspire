@@ -12,6 +12,7 @@ public abstract class DeleteTransactionEndpoint: IEndpoint
         => routeBuilder.MapDelete("/{id:long}", HandleAsync)
             .WithName("Transactions: Delete")
             .WithDescription("Delete transaction by id")
+            .WithOrder(2)
             .WithSummary("Delete transaction by id")
             .Produces<BaseResponse<Transaction>>();
 
