@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinAspire.API", "FinAspire.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinAspire.Infra", "FinAspire.Infra\FinAspire.Infra.csproj", "{AF856EDC-6A23-4767-B512-95F83BD37199}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinAspire.AuthorizationAPI", "FinAspire.AuthorizationAPI\FinAspire.AuthorizationAPI.csproj", "{40F29192-4858-477B-9492-C3F4661681ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{AF856EDC-6A23-4767-B512-95F83BD37199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF856EDC-6A23-4767-B512-95F83BD37199}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF856EDC-6A23-4767-B512-95F83BD37199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F29192-4858-477B-9492-C3F4661681ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F29192-4858-477B-9492-C3F4661681ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F29192-4858-477B-9492-C3F4661681ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F29192-4858-477B-9492-C3F4661681ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
