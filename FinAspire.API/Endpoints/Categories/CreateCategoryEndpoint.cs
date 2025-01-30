@@ -1,4 +1,6 @@
 ﻿using System.Reflection.Metadata;
+using System.Security.Claims;
+using Azure.Core;
 using FinAspire.API.Common;
 using FinAspire.Core.Handler;
 using FinAspire.Core.Models;
@@ -17,9 +19,11 @@ public abstract class CreateCategoryEndpoint : IEndpoint
             .Produces<BaseResponse<Category>>();
 
     private static async Task<IResult> HandleAsync(
+        ClaimsPrincipal user,
         ICategoryHandler handler,
         CreateCategoryRequest request)
     {
+        request.UserId = user.Identity?.Name ?? string.Empty;
         var result = await handler.CreateAsync(request);
         
         return result.IsSuccess ? 

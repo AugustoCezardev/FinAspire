@@ -1,4 +1,5 @@
-﻿using FinAspire.API.Common;
+﻿using System.Security.Claims;
+using FinAspire.API.Common;
 using FinAspire.Core.Handler;
 using FinAspire.Core.Models;
 using FinAspire.Core.Request.Transactions;
@@ -16,9 +17,13 @@ public abstract class DeleteTransactionEndpoint: IEndpoint
             .WithSummary("Delete transaction by id")
             .Produces<BaseResponse<Transaction>>();
 
-    private static async Task<IResult> HandleAsync(long id, string userId, ITransactionHandler handler)
+    private static async Task<IResult> HandleAsync(
+        ClaimsPrincipal user,
+        ITransactionHandler handler,
+        long id
+        )
     {
-        var request = new DeleteTransactionRequest { Id = id, UserId = userId};
+        var request = new DeleteTransactionRequest { Id = id, UserId = user.Identity?.Name ?? string.Empty };
         var response = await handler.DeleteAsync(request);
         return response.IsSuccess ? TypedResults.Ok(response) : TypedResults.BadRequest(response);
     }

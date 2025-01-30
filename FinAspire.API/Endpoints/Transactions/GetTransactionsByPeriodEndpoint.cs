@@ -1,4 +1,5 @@
-﻿using FinAspire.API.Common;
+﻿using System.Security.Claims;
+using FinAspire.API.Common;
 using FinAspire.Core;
 using FinAspire.Core.Handler;
 using FinAspire.Core.Models;
@@ -17,7 +18,9 @@ public abstract class GetTransactionsByPeriodEndpoint : IEndpoint
             .WithOrder(5)
             .Produces<BaseResponse<List<Transaction>?>>();
 
-    private static async Task<IResult> HandleAsync(ITransactionHandler handler, 
+    private static async Task<IResult> HandleAsync(
+        ClaimsPrincipal user,
+        ITransactionHandler handler, 
         DateTime? startDate = null, 
         DateTime? endDate = null,
         int page = Configuration.DefaultPageNumber,
@@ -25,7 +28,7 @@ public abstract class GetTransactionsByPeriodEndpoint : IEndpoint
     {
         var request = new GetTransactionByPeriodRequest
         {
-            UserId = "Augusto@Teste",
+            UserId = user.Identity?.Name ?? string.Empty,
             StartDate = startDate,
             EndDate = endDate,
             Page = page,

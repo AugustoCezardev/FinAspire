@@ -18,7 +18,7 @@ public static class DependencyInjection
         servicesCollection.AddDbContext<AppDbContext>(options => options.UseSqlServer(
             configuration.GetConnectionString("DefaultConnection"),
             c => c.MigrationsAssembly(Assembly.GetExecutingAssembly())));
-        
+
         servicesCollection.AddIdentityCore<User>()
             .AddRoles<IdentityRole<long>>()
             .AddEntityFrameworkStores<AppDbContext>();

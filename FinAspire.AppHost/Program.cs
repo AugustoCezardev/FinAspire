@@ -3,9 +3,6 @@ using Projects;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<FinAspire_AuthorizationAPI>("AuthorizationAPI")
-    .WithExternalHttpEndpoints();
-
 builder.AddProject<FinAspire_API>("API")
     .WithExternalHttpEndpoints();
 

@@ -1,4 +1,5 @@
-﻿using FinAspire.API.Common;
+﻿using System.Security.Claims;
+using FinAspire.API.Common;
 using FinAspire.Core.Handler;
 using FinAspire.Core.Models;
 using FinAspire.Core.Request.Categories;
@@ -15,9 +16,12 @@ public abstract class GetCategoryByIdEndpoint: IEndpoint
             .WithOrder(4)
             .Produces<BaseResponse<Category>>();
 
-    private static async Task<IResult> HandleAsync(long id, string userId, ICategoryHandler handler)
+    private static async Task<IResult> HandleAsync(
+        ClaimsPrincipal user,
+        ICategoryHandler handler,
+        long id)
     {
-        var request = new GetCategoryByIdRequest { Id = id, UserId = userId};
+        var request = new GetCategoryByIdRequest { Id = id, UserId = user.Identity?.Name ?? string.Empty };
         var response = await handler.GetByIdAsync(request);
         
         return response.IsSuccess ? TypedResults.Ok(response) : TypedResults.BadRequest(response);

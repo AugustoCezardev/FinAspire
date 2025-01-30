@@ -1,35 +1,21 @@
+using FinAspire.API.Common;
 using FinAspire.API.Endpoints;
-using FinAspire.API.Handlers;
-using FinAspire.Core.Handler;
-using FinAspire.Infra;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services
-    .AddAuthentication(IdentityConstants.ApplicationScheme)
-    .AddIdentityCookies();
-
-builder.Services.ImplementPersistence(builder.Configuration);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x =>
-{
-    x.CustomSchemaIds(schemaType => schemaType.FullName);
-});
-
-
-builder.Services.AddAuthorization();
-
-builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
-builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+builder.AddConfiguration();
+builder.AddSecurity();
+builder.AddDataContexts();
+builder.AddCrossOrigin();
+builder.AddDocumentation();
+builder.AddServices();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+    app.ConfigureDevEnvironment();
 
+app.UseCors();
+app.UseSecurity();
 app.MapEndpoints();
-
 app.Run();
 
