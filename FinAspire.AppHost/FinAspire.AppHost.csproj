@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FinAspire.API\FinAspire.API.csproj" />
+    <ProjectReference Include="..\FinAspire.Web\FinAspire.Web.csproj" />
   </ItemGroup>
 
 </Project>

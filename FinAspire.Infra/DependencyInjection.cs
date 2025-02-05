@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
 using FinAspire.Infra.Data;
+using FinAspire.Infra.Models;
 using FinAspire.Infra.Repositories.Categories;
+using FinAspire.Infra.Repositories.Transactions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +19,12 @@ public static class DependencyInjection
             configuration.GetConnectionString("DefaultConnection"),
             c => c.MigrationsAssembly(Assembly.GetExecutingAssembly())));
 
+        servicesCollection.AddIdentityCore<User>()
+            .AddRoles<IdentityRole<long>>()
+            .AddEntityFrameworkStores<AppDbContext>();
+
         servicesCollection.AddScoped<ICategoryRepository, CategoryRepository>();
+        servicesCollection.AddScoped<ITransactionRepository, TransactionRepository>();
         
         return servicesCollection;
             

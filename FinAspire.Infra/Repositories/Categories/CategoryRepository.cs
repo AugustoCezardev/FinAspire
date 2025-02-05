@@ -1,4 +1,6 @@
 ﻿using FinAspire.Core.Models;
+using FinAspire.Core.Request.Categories;
+using FinAspire.Core.Response;
 using FinAspire.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,12 +8,23 @@ namespace FinAspire.Infra.Repositories.Categories;
 
 public class CategoryRepository(AppDbContext dbContext): ICategoryRepository
 {
-    public async Task<IList<Category>> GetAllAsync()
+    public async Task<PagedResponse<List<Category>?>> GetAllAsync(GetAllCategoriesRequest request)
     {
         try
         {
-            var categories = await dbContext.Categories.ToListAsync();
-            return categories.ToList();
+
+            var query = dbContext.Categories
+                .AsNoTracking()
+                .Where(c => c.UserId == request.UserId);
+            
+            var categories = await query
+                .Skip(request.PageSize * (request.Page - 1))
+                .Take(request.PageSize)
+                .ToListAsync();
+            
+            var count = await query.CountAsync();
+            
+            return new PagedResponse<List<Category>?>(categories, count, request.Page);
         }
         catch (DbUpdateException e)
         {
@@ -20,11 +33,13 @@ public class CategoryRepository(AppDbContext dbContext): ICategoryRepository
         }
     }
 
-    public async Task<Category?> GetByIdAsync(long id)
+    public async Task<Category?> GetByIdAsync(long id, string userId)
     {
         try
         {
-            var category = await dbContext.Categories.FindAsync(id);
+            var category = await dbContext.Categories.
+                FirstOrDefaultAsync(x => x.Id == id 
+                                         && x.UserId == userId);
             
             return category;
         }
