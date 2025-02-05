@@ -1,0 +1,45 @@
+﻿@using MudBlazor.Utilities
+@inherits LayoutComponentBase
+
+<MudThemeProvider 
+    @ref="_mudThemeProvider"
+    @bind-IsDarkMode="_isDarkMode" 
+    Theme="Configuration.Theme"/>
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar >Dog
+        <MudSpacer/>
+        <MudSwitch 
+            Color="Color.Secondary" 
+            @bind-Value="@_isDarkMode"/>
+        </MudAppBar>
+    <MudMainContent>
+        <MudContainer>
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code
+{
+    private bool _isDarkMode = true;
+    private MudThemeProvider _mudThemeProvider = null!;
+
+    protected async override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
+            StateHasChanged();
+        }
+    }
+
+    private Task OnSystemPreferenceChanged(bool newValue)
+    {
+        _isDarkMode = newValue;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
