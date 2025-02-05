@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using FinAspire.API.Common;
+using FinAspire.Core.Models.Account;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinAspire.API.Endpoints.Identity;
@@ -20,13 +21,13 @@ public abstract class GetRolesEndpoint : IEndpoint
 
         var roles = identity?
             .FindAll(identity.RoleClaimType)
-            .Select(c => new
+            .Select(c => new RoleClaim
             {
-                c.Issuer,
-                c.OriginalIssuer,
-                c.Type,
-                c.Value,
-                c.ValueType
+                Issuer = c.Issuer,
+                OriginalIssuer = c.OriginalIssuer,
+                Type = c.Type,
+                Value = c.Value,
+                ValueType = c.ValueType
             });
 
         return TypedResults.Json(roles);
