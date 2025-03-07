@@ -24,7 +24,7 @@ public class AccountHandler(IHttpClientFactory httpClientFactory): IAccountHandl
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return new BaseResponse<string>( "Login failed!", e.Message, 400);
+            return new BaseResponse<string>("Login failed!", e.Message, 400);
         }
     }
 
